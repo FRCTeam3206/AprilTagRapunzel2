@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -32,7 +33,12 @@ public class Robot extends TimedRobot {
     // Drive with arcade drive.
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
-    m_leftMotor.set(ControlMode.PercentOutput,m_stick.getRawAxis(0));
-    m_rightMotor.set(ControlMode.PercentOutput,m_stick.getRawAxis(1));
+    if(m_stick.getRawButton(0)){
+      SmartDashboard.getNumber("targetYaw", 0);
+      
+    }else{
+      m_leftMotor.set(ControlMode.PercentOutput,m_stick.getRawAxis(1)+m_stick.getRawAxis(2));
+      m_rightMotor.set(ControlMode.PercentOutput,m_stick.getRawAxis(1)-m_stick.getRawAxis(2));
+    }
   }
 }
